@@ -1,0 +1,290 @@
+@import './base.css';
+#app {
+    margin: 0 auto;
+    font-weight: normal;
+}
+
+.h1__big {
+    font-size: 3rem;
+    background: -webkit-linear-gradient(0deg, #002026, #FF5400);
+    background-size: 100%;
+    background-repeat: repeat;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+}
+
+.h1__large {
+    font-size: 2rem;
+    background: -webkit-linear-gradient(0deg, #002026, #FF5400);
+    background-size: 100%;
+    background-repeat: repeat;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+}
+
+.errors {
+    color: red !important;
+}
+
+.v-text-field {
+    background-color: #ffffff00 !important;
+    color: #002026 !important;
+}
+
+
+/* ODS */
+
+.container__generale__router {
+    margin: 6vh 4vw 6vh 4vw;
+}
+
+.back__arrow {
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
+
+.back__arrow * {
+    margin-right: 1vh;
+    color: #002026;
+    cursor: pointer;
+}
+
+.button__container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttonlight {
+    border-radius: 20px !important;
+    border: 3px solid #002026 !important;
+    background: #ffffff !important;
+    color: #002026 !important;
+    padding: 1vh 3vh 1vh 3vh !important;
+    margin: 1vh !important;
+    width: 100%;
+}
+
+.buttonheavy {
+    border-radius: 20px !important;
+    border: 3px solid #002026 !important;
+    background: #002026 !important;
+    color: #ffffff !important;
+    padding: 1vh 3vh 1vh 3vh !important;
+    margin: 1vh !important;
+    width: 100%;
+}
+
+.buttonheavy__little {
+    border-radius: 20px !important;
+    border: 3px solid #002026 !important;
+    background: #002026 !important;
+    color: #ffffff !important;
+    padding: .5vh 2vh .5vh 2vh !important;
+    margin: 1vh !important;
+}
+
+.buttonlight__little {
+    border-radius: 20px !important;
+    border: 3px solid #002026 !important;
+    background: #ffffff !important;
+    color: #002026 !important;
+    padding: .5vh 2vh .5vh 2vh !important;
+    margin: 1vh !important;
+}
+
+input {
+    border-radius: 20px !important;
+    border: 3px solid #D9D9D9 !important;
+    background: #D9D9D9 !important;
+    color: #1E1E1E !important;
+    padding: 1vh 2vh 1vh 2vh;
+    margin: .4vw;
+}
+
+textarea {
+    border-radius: 20px !important;
+    border: 5px solid #D9D9D9 !important;
+    background: #ffffff !important;
+    color: #1E1E1E !important;
+    padding: 1vh 2vh 1vh 2vh;
+    resize: none !important;
+    width: 100%;
+}
+
+.ods__form section {
+    margin: 0 1.2vw 1.2vw 1.2vw;
+}
+
+.ods__form__input section input {
+    width: 330px;
+    margin: 0vh;
+}
+
+.ods__form__date section input {
+    width: 150px;
+    margin: 0vh;
+}
+
+.ods__form div {
+    max-width: 330px;
+}
+
+@media only screen and (max-width: 1000px) {
+    .ods__form__input section input {
+        width: 100%;
+        margin: 0vh;
+    }
+    .ods__form {
+        margin-top: 4vh;
+    }
+    .ods__form div {
+        max-width: 100%;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .profilo__upper__sez__uno {
+        width: 50px;
+        height: 50px;
+        border-radius: 50px;
+    }
+}
+
+.ods__form__date {
+    display: flex;
+}
+
+.v-carousel__controls {
+    background: #00000000 !important;
+    color: #002026 !important;
+}
+
+.ods__form__buttons {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ods__mini__card {
+    border-radius: 1.5rem;
+    margin: 1vw;
+    padding: 1vw 1.5vw 1vw 1.5vw;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.ods__card__little {
+    width: 16vw;
+    height: 40vh;
+}
+
+.ods__card__big {
+    height: 70vh;
+}
+
+.ods__card {
+    cursor: pointer;
+    margin: 2vw;
+    background-size: cover;
+    border-radius: 1rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr .5fr;
+    grid-template-areas: "." "ods__card__inside";
+}
+
+.ods__card__inside {
+    grid-area: ods__card__inside;
+    margin: 2vw 2vw 2vw 2vw;
+    display: grid;
+    grid-template-columns: 1fr .2fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: ". .";
+}
+
+.ods__card__inside__due {
+    margin-top: 3vh;
+}
+
+.v-app-bar.v-toolbar:not(.v-toolbar--flat) {
+    box-shadow: none !important;
+}
+
+.mx-auto {
+    width: 70vw;
+}
+
+@media only screen and (max-width: 1400px) {
+    .ods__card__little {
+        width: 30vw;
+        height: 35vh;
+    }
+    .container__generale__router {
+        margin: 6vh 2vw 6vh 2vw;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .container__generale__router {
+        margin: 6vh 1vw 6vh 1vw;
+    }
+    .mx-auto {
+        width: 90vw
+    }
+    .rsi1 {
+        width: 40vw !important;
+        height: 50vw !important;
+    }
+    .rsi2 {
+        width: 40vw !important;
+        height: 50vw !important;
+    }
+    .rsi3 {
+        width: 40vw !important;
+        height: 50vw !important;
+    }
+    .rsi4 {
+        width: 40vw !important;
+        height: 50vw !important;
+    }
+    .ricerca__suggerimenti {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        grid-template-areas: ". ." ". .";
+    }
+    .v-slide-group__prev {
+        display: none !important;
+    }
+    .v-slide-group__next {
+        display: none !important;
+    }
+    .ods__card__little {
+        width: 45vw;
+        height: 35vh;
+    }
+    .ods__card__inside__uno {
+        font-size: x-small;
+        margin-top: 2vh;
+        margin-left: 4vw;
+    }
+    .v-slide-group {
+        width: 90vw;
+    }
+    .destinazioni {
+        display: none;
+    }
+    .ced__container__interno {
+        display: none;
+    }
+    .cerca__destinazioni {
+        display: block !important
+    }
+}

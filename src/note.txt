@@ -1,0 +1,59 @@
+<!-- src/components/Home.vue -->
+<template>
+  <div>
+    <h1>Uploaded Files</h1>
+    <ul>
+      <li v-for="file in files" :key="file.id">
+        <p>Name: {{ file.name }}</p>
+        <p>URL: <a :href="file.url" target="_blank">{{ file.url }}</a></p>
+        <p>Uploaded By: {{ file.utente__id }}</p>
+        <p>Title: {{ file.titolo }}</p>
+        <p>Location: {{ file.luogo }}</p>
+        <p>Description: {{ file.descrizione }}</p>
+        <p>Accommodation: {{ file.alloggio }}</p>
+        <p>Start: {{ file.inizio.toDate().toLocaleString() }}</p>
+        <p>End: {{ file.fine.toDate().toLocaleString() }}</p>
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script>
+import { ref, onMounted } from 'vue';
+import { db } from '../firebase';
+import { collection, getDocs } from 'firebase/firestore';
+
+export default {
+  setup() {
+    const files = ref([]);
+
+    const fetchData = async () => {
+      const querySnapshot = await getDocs(collection(db, 'uploads'));
+      querySnapshot.forEach((doc) => {
+        files.value.push({ id: doc.id, ...doc.data() });
+      });
+    };
+
+    onMounted(() => {
+      fetchData();
+    });
+
+    return {
+      files,
+    };
+  },
+};
+</script>
+
+<style>
+/* Add some basic styling */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  border: 1px solid #ddd;
+  margin: 10px 0;
+  padding: 10px;
+}
+</style>
