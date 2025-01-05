@@ -60,11 +60,10 @@ export default {
   },
   getUserData: async function (user: string) {
 
-      const docRef = doc(db, "utenti", user);
+      const docRef = doc(db, "utenti_poke", user);
       const docSnap = await getDoc(docRef);
       
       if (docSnap.exists()) {
-        console.log(docSnap.data().username)
         return docSnap.data().username
       } else {
       }
@@ -81,7 +80,7 @@ export default {
       .then((userCredential: any) => {
         // Signed up 
         const user = userCredential.user;
-        return setDoc(doc(db, "utenti", user.uid), {
+        return setDoc(doc(db, "utenti_poke", user.uid), {
           idutente: user.uid,
           username: username,
           email: email,

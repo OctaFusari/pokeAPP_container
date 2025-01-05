@@ -14,11 +14,10 @@ import { createRouter, createWebHistory } from "vue-router";
 
 import Accesso from "./components/Accesso.vue";
 import Home from "./components/home.vue";
-import Opera from "./components/opera.vue";
+import Pokemon from "./components/pokemon.vue";
 import Profilo from "./components/profilo.vue";
 import modificaProfilo from "./components/modifyprofile.vue";
 import Ricerca from "./components/ricerca.vue";
-import Artista from "./components/artista.vue";
 
 import DataService from "./dataservice";
 
@@ -33,8 +32,8 @@ const router = createRouter({
     { path: "/ricerca", component: Ricerca, name: "ricerca" },
     { path: "/profilo:userId", component: Profilo, name: "profilo" },
     { path: "/profilo:userId/modifica", component: modificaProfilo, name: "modificaProfilo" },
-    { path: "/artista:arId", component: Artista, name: "artista" },
-    { path: "/opera:opId", component: Opera, name: "opera" }
+
+    { path: "/pokemon:opId", component: Pokemon, name: "pokemon" }
   ],
 });
 

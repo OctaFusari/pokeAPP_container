@@ -68,7 +68,7 @@ export default {
     },
     methods: {
         takeUsers: async function () {
-            const querySnapshot = await getDocs(collection(DataService.dbEx(), "utenti"));
+            const querySnapshot = await getDocs(collection(DataService.dbEx(), "utenti_poke"));
             querySnapshot.forEach((doc) => {
                 var route__dot = this.$route.params.userId;
                 var route__nodot = route__dot.substring(1);
@@ -79,9 +79,8 @@ export default {
             });
         },
         updateUtente: function () {
-            console.log(this.arrayUtenti.profile_picture_url)
             let user = localStorage.getItem("login")
-            setDoc(doc(DataService.dbEx(), "utenti", user), {
+            setDoc(doc(DataService.dbEx(), "utenti_poke", user), {
                 bio: this.arrayUtenti.bio,
                 email: this.arrayUtenti.email,
                 idutente: this.arrayUtenti.idutente,
@@ -116,7 +115,7 @@ export default {
                 () => {
                     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
 
-                        setDoc(doc(DataService.dbEx(), "utenti", user), {
+                        setDoc(doc(DataService.dbEx(), "utenti_poke", user), {
                             bio: this.arrayUtenti.bio,
                             email: this.arrayUtenti.email,
                             idutente: this.arrayUtenti.idutente,

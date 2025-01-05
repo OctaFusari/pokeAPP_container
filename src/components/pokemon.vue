@@ -1,7 +1,18 @@
 <template>
-    <div class="container__interno" v-if="this.ArtObj != undefined">
-      <section :style="{ backgroundImage: 'url(' + this.imgSet + ')' }">
-        
+    <div class="container__interno" v-if="this.PokeObj != undefined">
+      <section v-if="PokeObj.sprites" class="container__immagini">
+        <div v-if="PokeObj.sprites.front_default" :style="{ backgroundImage: 'url(' + PokeObj.sprites.front_default + ')' }">
+          
+        </div>
+        <div v-if="PokeObj.sprites.front_shiny" :style="{ backgroundImage: 'url(' + PokeObj.sprites.front_shiny + ')' }">
+          
+        </div>
+        <div v-if="PokeObj.sprites.back_default" :style="{ backgroundImage: 'url(' + PokeObj.sprites.back_default + ')' }">
+
+        </div>
+        <div v-if="PokeObj.sprites.back_shiny" :style="{ backgroundImage: 'url(' + PokeObj.sprites.back_shiny + ')' }">
+          
+        </div>
       </section>
       <section class="ods__mini__card" >
         <div>
@@ -14,15 +25,17 @@
         </div>
         <div>
           <h4>Titolo</h4>
-          <h1 class="h1__large">{{ ArtObj.title}}</h1>
+          <h1 class="h1__large">{{ PokeObj.name}}</h1>
         </div>
         <div>
-          <h4>Descrizione</h4>
-          <h2>{{ ArtObj.description}}</h2>
+          <h4>Esperienza base</h4>
+          <h2>{{ PokeObj.base_experience}}</h2>
         </div>
         <div>
-          <h4>Tipologia</h4>
-          <h2>{{ ArtObj.type}}</h2>
+          <h4>Abilità</h4>
+          <div class="ods__mini__card" v-for="ability in PokeObj.abilities">
+            <h2>{{ability.ability.name}}</h2>
+          </div>
         </div>
       </section>
     </div>
@@ -45,6 +58,7 @@ import {
 } from "firebase/firestore";
 import DataService from "../dataservice";
 import { useRouter, useRoute } from 'vue-router'
+import axios from "axios";
 
 const router = useRouter()
 const route = useRoute()
@@ -53,30 +67,36 @@ export default {
 
   data() {
     return {
-        ArtObj:{},
-        imgSet:"",
+        PokeObj:{},
         user: localStorage.getItem("login"),
-        liked: false
+        liked: false,
+        pokeName:null,
     }
   },
   watch: {
-
+    '$route.params.opId': {
+      immediate: true,
+      handler() {
+        this.PokeSearch()
+      },
+    },
   },
   methods: {
-    async artworkData() {
+    async PokeSearch() {
+      this.pokeName = this.$route.params.opId
         try {
-          const response = await DataService.getGene(this.$route.params.opId.substring(1));
-          this.ArtObj = response.data._embedded.results[0]
-          this.imgSet = response.data._embedded.results[0]._links.thumbnail.href
-          
+          let responsePoke = await axios.get(
+              `https://pokeapi.co/api/v2/pokemon/${this.pokeName.substring(1)}`
+            );
+          this.PokeObj = responsePoke.data
         } catch (error) {
-            
+            console.log(error)
         }
     }, 
     
 
     checkIfLiked: async function () {
-            const docRefUt = doc(DataService.dbEx(), 'likes', this.user + "_oppla_" + this.$route.params.opId.substring(1));
+            const docRefUt = doc(DataService.dbEx(), 'likes_poke', this.user + "_oppla_" + this.pokeName.substring(1));
             const docSnap = await getDoc(docRefUt);
 
             if (docSnap.exists()) {
@@ -95,27 +115,39 @@ export default {
             } 
         },
         unlikeImage: async function () {
-            deleteDoc(doc(DataService.dbEx(), 'likes', this.user + "_oppla_" + this.$route.params.opId.substring(1))).then(() =>{
+            deleteDoc(doc(DataService.dbEx(), 'likes_poke', this.user + "_oppla_" + this.pokeName.substring(1))).then(() =>{
                 this.checkIfLiked()
             });
             
         },
         likeImage: async function () {
-            const docRef = await setDoc(doc(DataService.dbEx(), 'likes', this.user + "_oppla_" + this.$route.params.opId.substring(1)), {
+            const docRef = await setDoc(doc(DataService.dbEx(), 'likes_poke', this.user + "_oppla_" + this.pokeName.substring(1)), {
                 userId: this.user,
-                postId: this.$route.params.opId.substring(1)
+                postId: this.pokeName.substring(1)
             })
             this.checkIfLiked()
         } 
   },
 
   mounted() {
-    this.artworkData()
+    this.PokeSearch()
   },
 }
 </script>
 
 <style>
+
+  .container__immagini{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: ". ." ". .";
+  }
+
+  .container__immagini div{
+    background-size: contain;
+  }
+
   .container__interno {
     margin: 10vh;
     display: grid;

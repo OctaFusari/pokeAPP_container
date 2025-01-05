@@ -22,13 +22,18 @@
       </div>
       <div class="profilo__centro">
         <div class="gallery-image">
-          <div v-for="post in this.arraySalvati" class="ods__card ods__card__little img-box" @click="$router.push({ path: '/opera:' + post.title__intero})"
-            :style="{ backgroundImage: 'linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(201, 201, 201, 0.73)), url(' + post.image + ')' }">
+          <div v-for="pokeData in this.arraySalvati" class="ods__card ods__card__little img-box" @click="$router.push({ path: '/pokemon:' + pokeData.data.name })"
+          :style="{
+              backgroundImage:
+                'linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(201, 201, 201, 0.73)), url(' +
+                pokeData.data.sprites.front_default +
+                ')',
+            }">
             <div class="ods__card__inside">
               <div class="ods__card__inside__uno">
                 <div>
                 </div>
-                <h3>{{ post.title }}</h3>
+                <h2>{{ pokeData.data.name }}</h2>
               </div>
               <div class="ods__card__inside__due">
               </div>
@@ -121,6 +126,7 @@ import {
   setDoc,
   getDoc,
 } from "firebase/firestore";
+import axios from "axios";
 export default {
   data() {
     return {
@@ -134,7 +140,7 @@ export default {
   methods: {
 
     takeUsers: async function () {
-      const querySnapshot = await getDocs(collection(DataService.dbEx(), "utenti"));
+      const querySnapshot = await getDocs(collection(DataService.dbEx(), "utenti_poke"));
       querySnapshot.forEach((doc) => {
         var route__dot = this.$route.params.userId;
         var route__nodot = route__dot.substring(1);
@@ -145,7 +151,7 @@ export default {
     },
 
     takeUserPost: async function () {
-      const querySnapshot = await getDocs(collection(DataService.dbEx(), "likes"));
+      const querySnapshot = await getDocs(collection(DataService.dbEx(), "likes_poke"));
       querySnapshot.forEach((doc) => {
         var route__dot = this.$route.params.userId;
         var route__nodot = route__dot.substring(1);
@@ -153,24 +159,15 @@ export default {
           this.artworkData(doc.data().postId)
         }
       });
-      console.log(this.arraySalvati)
     },
     async artworkData(title) {
       try {
-        const response = await DataService.getGene(title);
-        this.arraySalvati.push(
-        {
-          id: response.data._embedded.results[0]._links.self.href.replace("https://www.artsy.net/artwork/", ""),
-          title: response.data._embedded.results[0].title,
-          desc: response.data._embedded.results[0].description,
-          type: response.data._embedded.results[0].type,
-          image: response.data._embedded.results[0]._links.thumbnail.href,
-          title__intero: response.data._embedded.results[0]._links.permalink.href.replace("https://www.artsy.net/artwork/", ""),
-        }
-
-        )
+        let responsePoke = await axios.get(
+          `https://pokeapi.co/api/v2/pokemon/${title}`
+        );
+        this.arraySalvati.push(responsePoke)
       } catch (error) {
-
+        console.log(error)
       }
     }
   },

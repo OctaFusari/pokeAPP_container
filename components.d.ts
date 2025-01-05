@@ -14,6 +14,7 @@ declare module 'vue' {
     Home: typeof import('./src/components/home.vue')['default']
     Modifyprofile: typeof import('./src/components/modifyprofile.vue')['default']
     Opera: typeof import('./src/components/opera.vue')['default']
+    Pokemon: typeof import('./src/components/pokemon.vue')['default']
     Profilo: typeof import('./src/components/profilo.vue')['default']
     Prova: typeof import('./src/components/prova.vue')['default']
     Ricerca: typeof import('./src/components/ricerca.vue')['default']
