@@ -1,21 +1,14 @@
-import axios from 'axios';
-
 // Import the functions you need from the SDKs you need
 
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
 import {
-  collection,
   getFirestore,
-  getDocs,
   doc,
   setDoc,
-  getDoc,
-  updateDoc,
-  deleteField,
+  getDoc
 } from "firebase/firestore";
-import { getStorage, ref, uploadBytes  } from 'firebase/storage';
 
 
 // TODO: Add SDKs for Firebase products that you want to use
